@@ -5,9 +5,6 @@
 package w32
 
 import (
-	// #include <wtypes.h>
-	// #include <winable.h>
-	"C"
 	"fmt"
 	"syscall"
 	"unsafe"
@@ -920,6 +917,7 @@ func ChangeDisplaySettingsEx(szDeviceName *uint16, devMode *DEVMODE, hwnd HWND, 
 	return int32(ret)
 }
 
+/* remove to build without cgo
 func SendInput(inputs []INPUT) uint32 {
 	var validInputs []C.INPUT
 
@@ -947,3 +945,4 @@ func SendInput(inputs []INPUT) uint32 {
 	)
 	return uint32(ret)
 }
+*/
