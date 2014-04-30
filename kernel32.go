@@ -36,6 +36,8 @@ var (
 	procCreateToolhelp32Snapshot   = modkernel32.NewProc("CreateToolhelp32Snapshot")
 	procModule32First              = modkernel32.NewProc("Module32FirstW")
 	procModule32Next               = modkernel32.NewProc("Module32NextW")
+	procProcess32First             = modkernel32.NewProc("Process32FirstW")
+	procProcess32Next              = modkernel32.NewProc("Process32NextW")
 	procGetSystemTimes             = modkernel32.NewProc("GetSystemTimes")
 	procGetConsoleScreenBufferInfo = modkernel32.NewProc("GetConsoleScreenBufferInfo")
 	procSetConsoleTextAttribute    = modkernel32.NewProc("SetConsoleTextAttribute")
@@ -247,7 +249,21 @@ func Module32Next(snapshot HANDLE, me *MODULEENTRY32) bool {
 
 	return ret != 0
 }
+func Process32First(snapshot HANDLE, pe *PROCESSENTRY32) bool {
+	ret, _, _ := procProcess32First.Call(
+		uintptr(snapshot),
+		uintptr(unsafe.Pointer(pe)))
 
+	return ret != 0
+}
+
+func Process32Next(snapshot HANDLE, pe *PROCESSENTRY32) bool {
+	ret, _, _ := procProcess32Next.Call(
+		uintptr(snapshot),
+		uintptr(unsafe.Pointer(pe)))
+
+	return ret != 0
+}
 func GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime *FILETIME) bool {
 	ret, _, _ := procGetSystemTimes.Call(
 		uintptr(unsafe.Pointer(lpIdleTime)),

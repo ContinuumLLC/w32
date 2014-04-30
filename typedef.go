@@ -655,6 +655,18 @@ type SERVICE_STATUS struct {
 	DwCheckPoint              uint32
 	DwWaitHint                uint32
 }
+type PROCESSENTRY32 struct {
+	DwSize              uint32
+	CntUsage            uint32
+	Th32ProcessID       uint32
+	Th32DefaultHeapID   uintptr
+	Th32ModuleID        uint32
+	CntThreads          uint32
+	Th32ParentProcessID uint32
+	PcPriClassBase      int32
+	DwFlags             uint32
+	SzExeFile           [MAX_PATH]uint16
+}
 
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms684225.aspx
 type MODULEENTRY32 struct {
